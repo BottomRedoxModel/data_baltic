@@ -85,30 +85,66 @@ instances:
       bc_bottom_niva_brom_bio_PO4: 66. # Gdansk, Kasya
 #
       bctype_top_niva_brom_redox_Si: 4
-#      a1top_niva_brom_redox_Si: 1.5
-#      a2top_niva_brom_redox_Si: 1.5
-#      a3top_niva_brom_redox_Si: 320.
-#      bctype_bottom_niva_brom_redox_Si: 1
-#      bc_bottom_niva_brom_redox_Si: 100. #500. (Finish Bay, Conley 97)
+      surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update, 0 to include in biogeochemical update (default = 0)
+      bott_flux_with_diff: 0   # 1 to include bottom fluxes in diffusion update, 0 to include in biogeochemical update (default = 0) 
 #
 #Here we convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
 #     0 not to convert 
 #     1 to convert 
       bc_units_convert: 1
+
+      # injection_rate
+      injection_swith : 0 # if 1- turn on injection, 0 - no injection (by default)
+      injection_rate : 1292.
+      k_injection : 21 #number of layer to inject into
+      i_injection : 2  #number of column to inject into
+      inj_var_name :  niva_oxydep_cod_CHON 
+      # full name of variable for substance  you want to inject 
 #
-##---Horizontal mixing parameters------------------------------------------------------------------
 #
-#Here we specify horizontal mixing model using hmix_<variable name>
+##---Horizontal transport parameters------------------------------------------------------------------
+#
+
+#     0 to assume no horizontal advection  (default, does not need to be explicitly set)
+#     1 for horizontal advection 
+      h_adv: 0 
+#     0 to assume no horizontal turbulence (default, does not need to be explicitly set)
+#     1 for implementing horizontal turbulence 
+      h_turb: 0
+#     0 to assume no horizontal relaxation (default, does not need to be explicitly set)
+#     1 for relaxation  model: hmix = hmix_rate*(X_0 - X)  
+      h_relax: 1
+#     horizontal resolution (m) in case of constant value 
+      dx_adv : 250.
+#
+#
+##---Horizontal relaxation (side mixing with climatic data) parameters------------------------------------------------------------------
+#
+#Here we specify horizontal relaxation model using hmix_<variable name>
 #     0 to assume no horizontal mixing (default, does not need to be explicitly set)
 #     1 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by netCDF input file and hmix_rate specified here
 #     2 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by ASCII input file and hmix_rate specified here     
 #
       hmix_niva_brom_bio_NO3: 2
+      hmix_filename_niva_brom_bio_NO3 : co2-marine_no3.dat
       hmix_niva_brom_bio_NH4: 0
       hmix_niva_brom_bio_PO4: 2
+      hmix_filename_niva_brom_bio_PO4 : co2-marine_po4.dat
       hmix_niva_brom_redox_Si: 2
+      hmix_filename_niva_brom_redox_Si : co2-marine_si.dat
       hmix_niva_brom_redox_Alk: 2
+      hmix_filename_niva_brom_redox_Alk : co2-marine_alk.dat
       hmix_niva_brom_bio_O2: 2
+      hmix_filename_niva_brom_bio_O2 : co2-marine_o2.dat
+
+#      hmix_niva_oxydep_Oxy: 2
+#      hmix_filename_Oxy : spa_o2.dat
+#      hmix_niva_oxydep_NUT: 2
+#      hmix_filename_NUT : spa_no3.dat
+#      hmix_niva_oxydep_cod_CHON: 2
+#      hmix_filename_cod_CHON : spa_chon.dat
+#
+      hmix_rate_uniform: 200000. # vertically uniform horizontal relaxation (and horizontal turbulence), 0 to exclude (default = 0)
 #
 #
 ##---Ice model parameters--------------------------------------------------------------------------
@@ -137,15 +173,15 @@ instances:
       k0r:  0.04         # Background PAR attenuation [m-1] (default = 0.04 m-1, from ERSEM shortwave attenuation default)
       kESS: 4e-05        # Specific PAR attenuation by silt [m^2/mg] (default = 4e-05 m^2/mg, from ERSEM shortwave attenuation default)
       ESS:  0.           # Assumed (constant) concentration of silt [mg/m^3] (default = 0. mg/m^3, from ERSEM shortwave attenuation default)
-      kPhy: 0.00023      # Specific PAR attenuation by phytoplankton [m^2/mg N] (default = 0.0023 m^2/mg N, from ERSEM shortwave attenuation default)
+      kPhy: 0.003        # Specific PAR attenuation by phytoplankton [m^2/mg N] (default = 0.0023 m^2/mg N, from ERSEM shortwave attenuation default)
                          #   From ERSEM Blackford (P1-P4), default = 0.0004 m^2/mg C * 5.68 mg C/mg N (Redfield ratio 106/16 mol/mol)
                          #   Note misprint "e-3" instead of "e-4" in Blackford et al. (2004) Table 1
-      kPON: 0.           # Specific PAR attenuation due to PON [m^2/mg N] (default = 0. m^2/mg N)
+      kPON: 0.05         # Specific PAR attenuation due to PON [m^2/mg N] (default = 0. m^2/mg N)
 # The following are only used if light_model = 1
-      kHet: 0.           # Specific PAR attenuation due to zooplankton [m^2/mg N] (default = 0. m^2/mg N)
-      kDON: 0.           # Specific PAR attenuation due to DON [m^2/mg N] (default = 0. m^2/mg N)
-      kB:   0.           # Specific PAR attenuation due to bacteria [m^2/mg N] (default = 0. m^2/mg N)
-      kPIV: 0.           # Specific PAR attenuation due to total particulate inorganic volume fraction (default = 0. m^-1)
+      kHet: 0.05        # Specific PAR attenuation due to zooplankton [m^2/mg N] (default = 0. m^2/mg N)
+      kDON: 0.01        # Specific PAR attenuation due to DON [m^2/mg N] (default = 0. m^2/mg N)
+      kB:   0.03        # Specific PAR attenuation due to bacteria [m^2/mg N] (default = 0. m^2/mg N)
+      kPIV: 0.05        # Specific PAR attenuation due to total particulate inorganic volume fraction (default = 0. m^-1)
 #
 #
 ##---Assumed densities for particles in the model (may be used in light/sedimentation models)------
@@ -176,11 +212,10 @@ instances:
       dt:          0.0025      # Time step in [days] (default = 0.0025 days)
       freq_turb:   1           # Physical mixing time step = dt/freq_turb (default = 1)
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
-      year:        2003        # Selected year (for reading netCDF inputs)
+      year:        1990        # Selected year (for reading netCDF inputs)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
       last_day:    18250 #3650        # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
-      surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update, 0 to include in biogeochemical update (default = 0) 
 #
 #
 ##---Vertical diffusivity parameters---------------------------------------------------------------
@@ -262,10 +297,12 @@ instances:
       ncoutfile_name: BROM_out.nc     # netCDF output file name
       sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids
       outfile_name: finish.dat                   # ascii output file name
-      port_initial_state: 1                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
+      port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
       icfile_name: start.dat                     # ascii initial condition file name (needed if port_initial_state = 1)
+#
 #The following are only used if reading input from netCDF (input_type = 2)
 #Note: NetCDF variables (temperature, salinity, diffusivity) must have either two dimensions (depth, time) or four dimensions ((latitude, longitude, depth , time) or (longitude, latitude, depth, time))
+      nc_file_source: 2                          #  1 for ROMS netCDF output; 2 for GETM netCDF output; 3 for FVCOM netCDF output
       nc_set_k_wat_bbl: 1                        # 1 (default) to set the no. water column layers to agree with netCDF input
                                                  # 0 to use the value k_wat_bbl set above by subsampling the netCDF input
                                                  # Note that in both cases the water layer thickness is determined by the netCDF input, overriding water_layer_thickness above
@@ -274,7 +311,7 @@ instances:
       nc_z_increasing_upward: 1                  # 1 if netCDF depth variables are increasing upward (e.g. if "depth" is negative) (default = 0)
       ncinfile_name: B3zax-kz.nc                 # netCDF input file name
       ncintime_name: time                        # netCDF time dimension name [units since nc_year0-01-01 00:00:00]
-      nc_year0: 2003                           # reference year for netCDF time variable (default = 1970)
+      nc_year0: 1990  #1990 does not work   2003 work # reference year for netCDF time variable (default = 1970)
       ncinz_name: zax                            # netCDF depth dimension name for layer midpoints (rho points) [m]
       ncinz2_name: zax                           # netCDF depth dimension name for layer interfaces (w points) [m]
       ncinlat_name: latc                         # netCDF latitude dimension name (needed if reading 4D variables)
