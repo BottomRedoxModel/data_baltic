@@ -85,8 +85,11 @@ instances:
       bc_bottom_niva_brom_bio_PO4: 66. # Gdansk, Kasya
 #
       bctype_top_niva_brom_redox_Si: 4
-      surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update, 0 to include in biogeochemical update (default = 0)
-      bott_flux_with_diff: 0   # 1 to include bottom fluxes in diffusion update, 0 to include in biogeochemical update (default = 0) 
+
+      surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update,
+                               # 0 to include in biogeochemical update (default = 0)
+      bott_flux_with_diff: 0   # 1 to include bottom fluxes in diffusion update,
+                               # 0 to include in biogeochemical update (default = 0) 
 #
 #Here we convert bottom boundary values from 'mass/pore water ml' for dissolved and 'mass/mass' for solids into 'mass/total volume'
 #     0 not to convert 
@@ -113,7 +116,7 @@ instances:
       h_turb: 0
 #     0 to assume no horizontal relaxation (default, does not need to be explicitly set)
 #     1 for relaxation  model: hmix = hmix_rate*(X_0 - X)  
-      h_relax: 1
+      h_relax: 1 #1 #
 #     horizontal resolution (m) in case of constant value 
       dx_adv : 250.
 #
@@ -134,6 +137,7 @@ instances:
       hmix_filename_niva_brom_redox_Si : co2-marine_si.dat
       hmix_niva_brom_redox_Alk: 2
       hmix_filename_niva_brom_redox_Alk : co2-marine_alk.dat
+
       hmix_niva_brom_bio_O2: 2
       hmix_filename_niva_brom_bio_O2 : co2-marine_o2.dat
 
@@ -144,7 +148,7 @@ instances:
 #      hmix_niva_oxydep_cod_CHON: 2
 #      hmix_filename_cod_CHON : spa_chon.dat
 #
-      hmix_rate_uniform: 200000. # vertically uniform horizontal relaxation (and horizontal turbulence), 0 to exclude (default = 0)
+      hmix_rate_uniform: 2000. # vertically uniform horizontal relaxation (and horizontal turbulence), 0 to exclude (default = 0)
 #
 #
 ##---Ice model parameters--------------------------------------------------------------------------
@@ -162,7 +166,7 @@ instances:
       lat_light: 50      # Latitude of modelled site [degrees north], e.g. Hardangerfjord station H6 is at 60.228N; Sleipner=50N; Saelen=60.33N
       Io: 80.            # Theoretical maximum 24-hr average surface downwelling shortwave irradiance in air [W/m2] (default = 80 W/m2)
                          #   This should include that effect of average cloud cover (local)
-      light_model: 0     # Specify light model: 0 for simple model based on ersem/light.f90
+      light_model: 2     # Specify light model: 0 for simple model based on ersem/light.f90
                          #                      1 for extended model accounting for other particulates in BROM
 #
 #
@@ -214,7 +218,7 @@ instances:
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
       year:        1995        # Selected year (for reading netCDF inputs)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
-      last_day:    18250 #3650        # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
+      last_day:    730 #3650 #3650        # Last day in simulation (~ days_in_yr * no. repeated years, default = 365)
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
 #
 #
@@ -294,7 +298,7 @@ instances:
 #
 ##---I/O options-----------------------------------------------------------------------------------
       input_type: 2                              # input forcing type: 0 for sinusoidal changes, 1 to read from ascii, 2 to read from netCDF (default)
-      ncoutfile_name: BROM_out.nc     # netCDF output file name
+      ncoutfile_name: BROM_Baltic_out.nc     # netCDF output file name
       sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids
       outfile_name: finish.dat                   # ascii output file name
       port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
@@ -311,7 +315,7 @@ instances:
       nc_z_increasing_upward: 1                  # 1 if netCDF depth variables are increasing upward (e.g. if "depth" is negative) (default = 0)
       ncinfile_name: B3zax-kz.nc                 # netCDF input file name
       ncintime_name: time                        # netCDF time dimension name [units since nc_year0-01-01 00:00:00]
-      nc_year0: 1990  #1990 does not work   2003 work # reference year for netCDF time variable (default = 1970)
+      nc_year0: 1990                             # reference year for netCDF time variable (default = 1970)
       ncinz_name: zax                            # netCDF depth dimension name for layer midpoints (rho points) [m]
       ncinz2_name: zax                           # netCDF depth dimension name for layer interfaces (w points) [m]
       ncinlat_name: latc                         # netCDF latitude dimension name (needed if reading 4D variables)
@@ -384,8 +388,8 @@ instances:
       show_kztCFL: 0                             # 1/2 to show the max/profile of total vertical diffusivity and associated Courant-Friedrichs-Lewy number at the end of each day (default = 0)
       show_wCFL: 0                               # 1/2 to show the max/profile of vertical advection and associated Courant-Friedrichs-Lewy number at the end of each day (default = 0)
       show_nan: 0                                # 1 to show the profile concentration output on NaN-termination for the offending variable (default = 1)
-      show_nan_kztCFL: 2                         # 1/2 to show the max/profile of total vertical diffusivity and associated Courant-Friedrichs-Lewy number on NaN-termination (default = 1)
-      show_nan_wCFL: 1                           # 1/2 to show the max/profile of vertical advection and associated Courant-Friedrichs-Lewy number on NaN-termination (default = 1)
+      show_nan_kztCFL: 1                         # 1/2 to show the max/profile of total vertical diffusivity and associated Courant-Friedrichs-Lewy number on NaN-termination (default = 1)
+      show_nan_wCFL: 2                           # 1/2 to show the max/profile of vertical advection and associated Courant-Friedrichs-Lewy number on NaN-termination (default = 1)
 #
 #
 ## References
