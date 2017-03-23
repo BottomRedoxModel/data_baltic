@@ -25,70 +25,70 @@ instances:
 #Here we set the type of boundary condition using bctype_top_<variable name> and bctype_bottom_<variable name>
 #     0 to use surface fluxes from FABM where parameterized, otherwise no flux (default, does not need to be explicitly set)
 #     1 for constant Dirichlet, specified by bc_top_<variable name> or bc_bottom_<variable name>
-#       E.g. bctype_bottom_niva_brom_bio_O2: 1
-#            bc_bottom_niva_brom_bio_O2: 0.
+#       E.g. bctype_bottom_B_BIO_O2: 1
+#            bc_bottom_B_BIO_O2: 0.
 #     2 for sinusoidal Dirichlet, specified by bcpar_top_<variable name> or bcpar_bottom_<variable name>
 #            The model is: phi(t) = a1 + a2*sin(omega*(day-a3)) where omega = 2*pi/365
 #                                  => max(phi(t)) = a1+a2, min(phi(t)) = a1-a2, mean(phi(t)) = a1, peak at 91.25+a3 days
 #            Model parameters are specified by a1top_<variable name> etc.
-#       E.g. bctype_top_niva_brom_bio_NO3: 2
-#            a1top_niva_brom_bio_NO3: 3.0
-#            a2top_niva_brom_bio_NO3: 3.0
-#            a3top_niva_brom_bio_NO3: 60.
+#       E.g. bctype_top_B_NUT_NO3: 2
+#            a1top_B_NUT_NO3: 3.0
+#            a2top_B_NUT_NO3: 3.0
+#            a3top_B_NUT_NO3: 60.
 #     3 for arbitrary Dirichlet, read from netCDF file (see I/O options to specify netCDF variable names)
 #
 #     4 for arbitrary Dirichlet, read from ASCII file or calculated as a function of salinity (i.e. for Alk, SO4)
 #
-#      bctype_top_niva_brom_bio_O2: 4
-#      bctype_bottom_niva_brom_bio_H2S: 1
-#      bc_bottom_niva_brom_bio_H2S: 967.
-#      bc_top_niva_brom_bio_O2: 0.
+#      bctype_top_niva_B_BIO_O2: 4
+#      bctype_bottom_niva_B_S_H2S: 1
+#      bc_bottom_niva_B_S_H2S: 967.
+#      bc_top_niva_B_BIO_O2: 0.
 #
-      bctype_top_niva_brom_redox_SO4: 5 # surface SO4 is calculated from SO4/Salinity ratio
-#      a1top_niva_brom_redox_SO4: 20000
-#      a2top_niva_brom_redox_SO4: 2
-#      a3top_niva_brom_redox_SO4: 60.
-      bctype_bottom_niva_brom_redox_SO4: 1
-      bc_bottom_niva_brom_redox_SO4: 395. #19
+      bctype_top_B_S_SO4: 5 # surface SO4 is calculated from SO4/Salinity ratio
+#      a1top_B_S_SO4: 20000
+#      a2top_B_S_SO4: 2
+#      a3top_B_S_SO4: 60.
+      bctype_bottom_B_S_SO4: 1
+      bc_bottom_B_S_SO4: 395. #19
 #
-      bctype_top_niva_brom_redox_Mn4: 1
-      bc_top_niva_brom_redox_Mn4: 20.E-4
+      bctype_top_B_Mn_Mn4: 1
+      bc_top_B_Mn_Mn4: 20.E-4
 #
-      bctype_top_niva_brom_redox_Fe3: 1
-      bc_top_niva_brom_redox_Fe3: 5.E-4
+      bctype_top_B_Fe_Fe3: 1
+      bc_top_B_Fe_Fe3: 5.E-4
 #
-      bctype_top_niva_brom_carb_Alk: 4 #1
-      bc_top_niva_brom_carb_Alk: 2200.
-      bctype_bottom_niva_brom_carb_Alk: 1
-      bc_bottom_niva_brom_carb_Alk: 13857. # st.19
+      bctype_top_B_C_Alk: 4 #1
+      bc_top_B_C_Alk: 2200.
+      bctype_bottom_B_C_Alk: 1
+      bc_bottom_B_C_Alk: 13857. # st.19
 #
-#      bctype_bottom_niva_brom_carb_DIC: 1
-#      bc_bottom_niva_brom_carb_DIC: 2850.
-      bctype_bottom_niva_brom_carb_DIC: 1
-      bc_bottom_niva_brom_carb_DIC: 10023. #
+#      bctype_bottom_B_C_DIC: 1
+#      bc_bottom_B_C_DIC: 2850.
+      bctype_bottom_B_C_DIC: 1
+      bc_bottom_B_C_DIC: 10023. #
 
-#      bctype_bottom_niva_brom_bio_NH4: 1
-#      bc_bottom_niva_brom_bio_NH4: 10.
-      bctype_bottom_niva_brom_bio_NH4: 1
-      bc_bottom_niva_brom_bio_NH4: 710. # st.19
+#      bctype_bottom_B_NUT_NH4: 1
+#      bc_bottom_B_NUT_NH4: 10.
+      bctype_bottom_B_NUT_NH4: 1
+      bc_bottom_B_NUT_NH4: 710. # st.19
 #
-      bctype_top_niva_brom_bio_NO3: 4
-#      a1top_niva_brom_bio_NO3: 1. # 3
-#      a2top_niva_brom_bio_NO3: 1.
-#      a3top_niva_brom_bio_NO3: 320.
-      bctype_bottom_niva_brom_bio_NO3: 1
-      bc_bottom_niva_brom_bio_NO3: 0. # no reference
+      bctype_top_B_NUT_NO3: 4
+#      a1top_B_NUT_NO3: 1. # 3
+#      a2top_B_NUT_NO3: 1.
+#      a3top_B_NUT_NO3: 320.
+      bctype_bottom_B_NUT_NO3: 1
+      bc_bottom_B_NUT_NO3: 0. # no reference
 #
-      bctype_top_niva_brom_bio_PO4: 4
-#      a1top_niva_brom_bio_PO4: 0.7 #0.8
-#      a2top_niva_brom_bio_PO4: 0.7
-#      a3top_niva_brom_bio_PO4: 320. #60.
-      bctype_bottom_niva_brom_bio_PO4: 1
-      bc_bottom_niva_brom_bio_PO4: 206. # 
+      bctype_top_B_NUT_PO4: 4
+#      a1top_B_NUT_PO4: 0.7 #0.8
+#      a2top_B_NUT_PO4: 0.7
+#      a3top_B_NUT_PO4: 320. #60.
+      bctype_bottom_B_NUT_PO4: 1
+      bc_bottom_B_NUT_PO4: 206. # 
 #
-      bctype_top_niva_brom_redox_Si: 4
-      bctype_bottom_niva_brom_redox_Si: 1
-      bc_bottom_niva_brom_redox_Si: 150. #
+      bctype_top_B_NUT_Si: 4
+      bctype_bottom_B_NUT_Si: 1
+      bc_bottom_B_NUT_Si: 150. #
 
       surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update,
                                # 0 to include in biogeochemical update (default = 0)
@@ -132,18 +132,18 @@ instances:
 #     1 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by netCDF input file and hmix_rate specified here
 #     2 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by ASCII input file and hmix_rate specified here     
 #
-      hmix_niva_brom_bio_NO3: 0
-      hmix_filename_niva_brom_bio_NO3 : no3_out.dat #co2-marine_no3.dat
-      hmix_niva_brom_bio_NH4: 0
-      hmix_niva_brom_bio_PO4: 0
-      hmix_filename_niva_brom_bio_PO4 : po4_out.dat #co2-marine_po4.dat
-      hmix_niva_brom_redox_Si: 0
-      hmix_filename_niva_brom_redox_Si : si_out.dat #co2-marine_si.dat
-      hmix_niva_brom_carb_Alk: 0
-      hmix_filename_niva_brom_carb_Alk : alk_out.dat #co2-marine_alk.dat
+      hmix_B_NUT_NO3: 0
+      hmix_filename_B_NUT_NO3 : no3_out.dat #co2-marine_no3.dat
+      hmix_B_NUT_NH4: 0
+      hmix_B_NUT_PO4: 0
+      hmix_filename_B_NUT_PO4 : po4_out.dat #co2-marine_po4.dat
+      hmix_B_NUT_Si: 0
+      hmix_filename_B_NUT_Si : si_out.dat #co2-marine_si.dat
+      hmix_B_C_Alk: 0
+      hmix_filename_B_C_Alk : alk_out.dat #co2-marine_alk.dat
 
-      hmix_niva_brom_bio_O2: 0
-      hmix_filename_niva_brom_bio_O2 : o2_out.dat #co2-marine_o2.dat
+      hmix_B_BIO_O2: 0
+      hmix_filename_B_BIO_O2 : o2_out.dat #co2-marine_o2.dat
 
 #      hmix_niva_oxydep_Oxy: 2
 #      hmix_filename_Oxy : spa_o2.dat
@@ -197,23 +197,23 @@ instances:
 # Densities are specified by rho_<full variable name> and in same units as the model concentration
 # Any missing values will use the default density rho_def
       rho_def:   3.0E7                     # Default density of solid particles [mmol/m3]
-      rho_niva_brom_bio_Phy: 1.5E7         # Density of (living) phytoplankton [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
-      rho_niva_brom_bio_PON: 1.5E7         # Density of (dead) particulate organic matter [mmolN/m3] (default = 1.4E6 mmolN/m3, from: 1.23 g WW/cm3 (Alldredge, Gotschalk, 1988), mg DW/mg WW=0.18 and mg DW /mg C=2 (Link et al.,2006))
-      rho_niva_brom_bio_Het: 1.5E7         # Density of (living) non-bacterial heterotrophs [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)  
-      rho_niva_brom_redox_Baae: 1.5E7      # Density of (living) aerobic autotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
-      rho_niva_brom_redox_Bhae: 1.5E7      # Density of (living) aerobic heterotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
-      rho_niva_brom_redox_Baan: 1.5E7      # Density of (living) anaerobic autotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
-      rho_niva_brom_redox_Bhan: 1.5E7      # Density of (living) anaerobic heterotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
-      rho_niva_brom_redox_CaCO3: 2.80E7    # Density of calcium carbonate [mmolCa/m3] (default = 2.80E7 mmolCa/m3)
-      rho_niva_brom_redox_Fe3: 3.27E7      # Density of Fe3 [mmolFe/m3] (default = 3.27E7 mmolFe/m3)
-      rho_niva_brom_redox_FeCO3: 2.93E7    # Density of FeCO3 [mmolFe/m3] (default = 2.93E7 mmolFe/m3)
-      rho_niva_brom_redox_FeS: 5.90E7      # Density of FeS [mmolFe/m3] (default = 5.90E7 mmolFe/m3)
-      rho_niva_brom_redox_FeS2: 4.17E7     # Density of FeS2 [mmolFe/m3] (default = 4.17E7 mmolFe/m3)
-      rho_niva_brom_redox_Mn4: 5.78E7      # Density of Mn4 [mmolMn/m3] (default = 5.78E7 mmolMn/m3)
-      rho_niva_brom_redox_MnCO3: 3.20E7    # Density of MnCO3 [mmolMn/m3] (default = 3.20E7 mmolMn/m3)
-      rho_niva_brom_redox_MnS: 4.60E7      # Density of MnS [mmolMn/m3] (default = 4.60E7 mmolMn/m3)
-      rho_niva_brom_redox_S0: 6.56E7       # Density of S0 [mmolS/m3] (default = 6.56E7 mmolS/m3)
-      rho_niva_brom_redox_Sipart: 4.40E7   # Density of particulate silicate [mmolSi/m3] (default = 4.40E7 mmolSi/m3)
+      rho_B_BIO_Phy: 1.5E7         # Density of (living) phytoplankton [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
+      rho_B_BIO_PON: 1.5E7         # Density of (dead) particulate organic matter [mmolN/m3] (default = 1.4E6 mmolN/m3, from: 1.23 g WW/cm3 (Alldredge, Gotschalk, 1988), mg DW/mg WW=0.18 and mg DW /mg C=2 (Link et al.,2006))
+      rho_B_BIO_Het: 1.5E7         # Density of (living) non-bacterial heterotrophs [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)  
+      rho_B_BACT_Baae: 1.5E7      # Density of (living) aerobic autotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
+      rho_B_BACT_Bhae: 1.5E7      # Density of (living) aerobic heterotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
+      rho_B_BACT_Baan: 1.5E7      # Density of (living) anaerobic autotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
+      rho_B_BACT_Bhan: 1.5E7      # Density of (living) anaerobic heterotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
+      rho_B_Ca_CaCO3: 2.80E7    # Density of calcium carbonate [mmolCa/m3] (default = 2.80E7 mmolCa/m3)
+      rho_B_Fe_Fe3: 3.27E7      # Density of Fe3 [mmolFe/m3] (default = 3.27E7 mmolFe/m3)
+      rho_B_Fe_FeCO3: 2.93E7    # Density of FeCO3 [mmolFe/m3] (default = 2.93E7 mmolFe/m3)
+      rho_B_Fe_FeS: 5.90E7      # Density of FeS [mmolFe/m3] (default = 5.90E7 mmolFe/m3)
+      rho_B_Fe_FeS2: 4.17E7     # Density of FeS2 [mmolFe/m3] (default = 4.17E7 mmolFe/m3)
+      rho_B_Mn_Mn4: 5.78E7      # Density of Mn4 [mmolMn/m3] (default = 5.78E7 mmolMn/m3)
+      rho_B_Mn_MnCO3: 3.20E7    # Density of MnCO3 [mmolMn/m3] (default = 3.20E7 mmolMn/m3)
+      rho_B_Mn_MnS: 4.60E7      # Density of MnS [mmolMn/m3] (default = 4.60E7 mmolMn/m3)
+      rho_B_S_S0: 6.56E7       # Density of S0 [mmolS/m3] (default = 6.56E7 mmolS/m3)
+      rho_B_Si_Sipart: 4.40E7   # Density of particulate silicate [mmolSi/m3] (default = 4.40E7 mmolSi/m3)
 #
 #
 ##---Time stepping parameters----------------------------------------------------------------------
