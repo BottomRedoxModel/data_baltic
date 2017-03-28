@@ -1,7 +1,13 @@
+# This is .YAML file for BROM biogoechemical model.
+# Please don't write more than 72 symbols in one line, 
+# never use "TAB" and simplify your life by adding references !
+#----------------------------------------------------------------------
 check_conservation: false
 require_initialization: true
 instances:
+#----------------------------------------------------------------------
   B_NUT:
+#----------------------------------------------------------------------
     long_name: main_nutrients
     model: niva/brom_main_nutrients
     initialization:
@@ -10,7 +16,9 @@ instances:
       NO3: 5.0
       PO4: 1.0
       Si:  0.0
+#----------------------------------------------------------------------
   B_EQ:
+#----------------------------------------------------------------------
     long_name: equilibrium_constrants
     model: niva/brom_eq_constants
   B_C:
@@ -18,13 +26,15 @@ instances:
     model: niva/brom_carbon
     initialization:
       DIC: 2130.0 # total dissolved inorganic carbon (mmol C/m^3)
-      Alk: 2300.0 # umol/kg
+      Alk: 2300.0 
     coupling:
       Kc0:   B_EQ/Kc0
       Kc1:   B_EQ/Kc1
       Kc2:   B_EQ/Kc2
       Hplus: B_pH/Hplus
+#----------------------------------------------------------------------
   B_Ca:
+#----------------------------------------------------------------------
     long_name: calcium
     model: niva/brom_calcium
     initialization:
@@ -33,9 +43,15 @@ instances:
       DIC: B_C/DIC
       CO3: B_C/CO3
     parameters:
-      K_caco3_diss: 3.0      #! CaCO3 dissollution rate constant (1/d) (wide ranges are given in (Luff et al., 2001))
-      K_caco3_form: 0.0002   #! CaCO3 precipitation rate constant (1/d) (wide ranges are given in (Luff et al., 2001))
+      K_caco3_diss: 3.0  
+        #! CaCO3 dissollution rate constant (1/d) (wide ranges 
+        #  are given in (Luff et al., 2001))
+      K_caco3_form: 0.0002  
+        #! CaCO3 precipitation rate constant (1/d) (wide ranges 
+        #  are given in (Luff et al., 2001))
+#----------------------------------------------------------------------
   B_pH:
+#----------------------------------------------------------------------
     long_name: pH
     model: niva/brom_pH
     coupling:
@@ -58,7 +74,9 @@ instances:
       NH4:      B_NUT/NH4
       H2S:      B_S/H2S
       SO4:      B_S/SO4
+#----------------------------------------------------------------------
   B_BIO:
+#----------------------------------------------------------------------
     long_name: bio
     model: niva/brom_bio
     initialization:
@@ -82,40 +100,39 @@ instances:
       Bhan:   B_BACT/Bhan
       Hplus:  B_pH/Hplus
     parameters:
-# ---- Phy  ----------
-      K_phy_gro: 2.5 #3. #4.7        # Maximum specific growth rate (1/d) = 0.9-1.3 (Savchuk, 2002), = 3.(Gregoire, Lacroix, 2001) >!0.5 worked for Berre!< 
-      Iopt: 25.             # Optimal irradiance (W/m2) =50 (Savchuk, 2002)
-      K_phy_mrt: 0.10       # Specific rate of mortality, (1/d) = 0.3-0.6 (Savchuk, 2002), = 0.05 (Gregoire, Lacroix, 2001)   
+      K_phy_gro: 2.5 #3. #4.7
+        # Maximum specific growth rate (1/d) = 0.9-1.3 (Savchuk, 2002), 
+        # = 3.(Gregoire, Lacroix, 2001) >!0.5 worked for Berre! 
+      Iopt: 25.      
+        # Optimal irradiance (W/m2) =50 (Savchuk, 2002)
+      K_phy_mrt: 0.10 
+        # Specific rate of mortality, (1/d) = 0.3-0.6 (Savchuk, 2002), = 0.05 (Gregoire, Lacroix, 2001)   
       K_phy_exc: 0.10       # Specific rate of excretion, (1/d) = 0.01 (Burchard et al., 2006)
-# ----Het -----------
-      K_het_phy_gro: 0.5    #! Max.spec. rate of grazing of Zoo on Phy, (1/d), =0.9 (Gregoire, Lacroix, 2001), =1.5 (Burchard et al., 2006)   was 1.1 
+      K_het_phy_gro: 0.9    #! Max.spec. rate of grazing of Zoo on Phy, (1/d), =0.9 (Gregoire, Lacroix, 2001), =1.5 (Burchard et al., 2006)   was 1.1 
       K_het_phy_lim: 0.5    #! Half-sat.const.for grazing of Zoo on Phy for Phy/Zoo ratio
       K_het_pom_gro: 0.50   #! Max.spec.rate of grazing of Zoo on POP and bacteria, (1/d), =1.2 (Burchard et al., 2006)
       K_het_pom_lim: 0.05   #! Half-sat.const.for grazing of Zoo on POP for POP/Zoo  ratio
       K_het_res: 0.02       #! Specific respiration rate =0.02 (Yakushev et al., 2007)
-      K_het_mrt: 0.05       #! %! Maximum specific rate of mortality of Zoo (1/d) =0.05 (Gregoire, Lacroix, 2001)  
+      K_het_mrt: 0.01       #! %! Maximum specific rate of mortality of Zoo (1/d) =0.05 (Gregoire, Lacroix, 2001)  
       Uz: 0.5               #! Food absorbency for Zoo(Het) (nd) =0.5-0.7 (Savchuk, 2002)
       Hz: 0.5               #! Ratio betw. diss. and part. excretes of Zoo (nd), =0.5 (Gregoire, Lacroix, 2001)  
       limGrazBac:  2.       #! Limiting parameter for bacteria grazing by Zoo, =2. (Yakushev et al., 2007)
-# ----N -------------
       K_nox_lim: 0.1        #! Half-sat.const.for uptake of NO3+NO2 (uM) =0.5 (Gregoire, Lacroix, 2001)
       K_nh4_lim: 0.02       #! Half-sat.const.for uptake of NH4 (uM) =0.2 (Gregoire, Lacroix, 2001)
       K_psi: 1.46           #! Strength of NH4 inhibition of NO3 uptake constant (uM-1) =1.46_rk (Gregoire, Lacroix, 2001)
       K_nfix: 0.4           #! Maximum specific rate of N-fixation (1/d) =0.5 (Savchuk, 2002)
-# ----P ------------
       K_po4_lim: 0.012      #! Half-sat. constant for uptake of PO4 by Phy
-# ----Si------------
       K_si_lim: 0.1         #! Half-sat. constant for uptake of Si_lim by Phy
-# ----Sinking-------
       Wsed: 5.0        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
       Wphy: 0.2        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
-      Whet: 1.         #! Rate of sinking of Het (m/d), =1. (Yakushev et al., 2007)
-# ---- Stoichiometric coefficients ----
+      Whet: 0.1         #! Rate of sinking of Het (m/d), =1. (Yakushev et al., 2007)
       r_n_p: 16.0      #! N[uM]/P[uM]
       r_o_n: 6.625     #! O2[uM]/N[uM]
       r_c_n: 8.0       #! C[uM]/N[uM]  
-      r_si_n: 1.0      #! Si[uM]/N[uM]   
+      r_si_n: 1.0      #! Si[uM]/N[uM]
+#----------------------------------------------------------------------
   B_BACT:
+#----------------------------------------------------------------------
     long_name: bacteria
     model: niva/brom_bact
     initialization:
@@ -155,7 +172,6 @@ instances:
       DcDM_Fe:  B_Fe/DcDM_Fe
       DcPM_ch4: B_CH4/DcPM_ch4
     parameters:
-# ---- Model parameters ------
       K_Baae_gro: 0.1        #!  Baae maximum specific growth rate (1/d) (Yakushev, 2013)
       K_Baae_mrt: 0.005      #!  Baae specific rate of mortality (1/d) (Yakushev et al., 2013)
       K_Baae_mrt_h2s: 0.899  #!  Baae increased specific rate of mortality due to H2S (1/d) (Yakushev et al., 2013)
@@ -172,7 +188,9 @@ instances:
       K_Bhan_mrt_o2: 0.899   #!  Bhan increased specific rate of mortality due to O2 (1/d) (Yakushev, 2013)
       limBhan: 2.0           #! Limiting parameter for OM consumprion by Bhan (nd) (Yakushev, 2013) 
       Wbact: 0.4         #! Rate of sinking of bacteria (Bhae,Baae,Bhan,Baan) (1/d), (Yakushev et al.,2007)
+#----------------------------------------------------------------------
   B_N:
+#----------------------------------------------------------------------
     long_name: nitrogen_cycle
     model: niva/brom_nitrogen
     coupling:
@@ -203,7 +221,9 @@ instances:
       O2s_dn: 10.0
       r_n_p: 16.0  # N[uM]/P[uM]
       r_c_n: 8.0   # C[uM]/N[uM]
+#----------------------------------------------------------------------
   B_CH4:
+#----------------------------------------------------------------------
     long_name: methane
     model: niva/brom_methane
     parameters:
@@ -229,7 +249,9 @@ instances:
       PON: B_BIO/PON
       NO3: B_NUT/NO3
       SO4: B_S/SO4
+#----------------------------------------------------------------------
   B_S:
+#----------------------------------------------------------------------
     long_name: sulfur_cycle
     model: niva/brom_sulfur
     initialization:
@@ -260,11 +282,13 @@ instances:
       K_hs_no3: 0.8
       K_s0_no3:   0.9   # Specific rate of oxidation of S0 with NO3
       K_s2o3_no3: 0.01  # Specific rate of oxidation of S2O3 with NO3
-      s_omso_o2: 25.0 # threshold of o2 for OM sulfate reduction
-      s_omso_no3: 5.0 # threshold of noX for OM sulfate reduction
+      s_omso_o2: 25.0   # threshold of o2 for OM sulfate reduction
+      s_omso_no3: 5.0   # threshold of noX for OM sulfate reduction
       r_n_p: 16.0  # N[uM]/P[uM]
       r_c_n: 8.0   # C[uM]/N[uM]
+#----------------------------------------------------------------------
   B_Fe:
+#----------------------------------------------------------------------
     long_name: iron
     model: niva/brom_fe
     initialization:
@@ -287,10 +311,10 @@ instances:
       PON:   B_BIO/PON
       Hplus: B_pH/Hplus
     parameters:
-      # Rate of accel. sink. of part. with settled metal hydroxides (1/d)
       Wm: 10.0
-      # Specific rate of oxidation of Fe2 to Fe3  with O2 (1/d)
+        # Rate of accel. sink. of part. with settled metal hydroxides (1/d)
       K_fe_ox1: 0.5
+        # Specific rate of oxidation of Fe2 to Fe3  with O2 (1/d)
       # Specific rate of oxidation of Fe2 to Fe3  with MnO2 (1/d)
       K_fe_ox2: 0.001
       # Specific rate of reduction of Fe3 to Fe2  with H2S (1/day)
@@ -334,7 +358,9 @@ instances:
       r_fe3_p: 2.7
       #! Fe[uM]/Si[uM] partitioning coeff. for Fe oxide
       r_fe3_si: 3.
+#----------------------------------------------------------------------
   B_Mn:
+#----------------------------------------------------------------------
     long_name: manganese
     model: niva/brom_manganese
     initialization:
@@ -395,7 +421,9 @@ instances:
       r_mn_n: 13.25
       # Mn[uM]/P[uM] complex stoichiometric coeff. for Mn(III)
       r_mn3_p: 0.67
+#----------------------------------------------------------------------
   B_Si:
+#----------------------------------------------------------------------
     long_name: silicon
     model: niva/brom_silicon
     initialization:
@@ -403,49 +431,70 @@ instances:
     coupling:
       Si: B_NUT/Si
     parameters:
-      # Sinking (Gregoire, Lacroix, 2001)
       Wsed: 5.0 # Rate of sinking of detritus (m/d)
-      # Si dissollution rate constant (Popova,04)
+        # Sinking (Gregoire, Lacroix, 2001)
       K_sipart_diss: 0.008
+        # Si particulate biogenic dissollution rate constant (1/d) (Popova,2004)
+      K_sipart_to_minerals: 0.05
+        # Si_part transformation into minerals not modeled here (1/d) (DeMaster, 2003)
+      Si_diss_max: 1500.
+        # Max conc. of diss Si for precipitation (mmol/m**3) (Strakhov, 1978)
+#----------------------------------------------------------------------
   B_Ni:
+#----------------------------------------------------------------------
     long_name: nickel
     model: niva/brom_ni
     initialization:
       Ni: 1.0
       NiS: 0.0
-#      Ni_POM: 0.0
-#      Ni_DOM: 0.0
-#      Ni_bio: 0.0
-#      Ni_miner: 0.0
+      Ni_POM: 0.0
+      Ni_DOM: 0.0
+      Ni_biota: 0.0
     coupling:
       H2S: B_S/H2S
       Mn4: B_Mn/Mn4
       FeS: B_Fe/FeS
       FeS2: B_Fe/FeS2
-      fes_form: B_Fe/fes_form
-      fes_diss: B_Fe/fes_diss
-      fes_ox: B_Fe/fes_ox
-      feS2_form: B_Fe/feS2_form
     parameters:
-      K_NiS : 2510.     # Solubility Product Constant,   default=2510.0_rk
-      K_NiS_form: 5.e-5 # Specific rate of precipitation of NiS from Ni with H2S',   default=5.e-5_rk
-      K_NiS_diss: 1.e-6 # Specific rate of dissollution of NiS to Ni and H2S',   default=1.e-6_rk
-      r_fes_ni: 833.    # FeS[uM]/Ni[uM] partitioning coeff. for FeS
-#  B_PART:
-#!    long_name: partitioning
-#    model: niva/brom_partitioning
-#    initialization:
-#      Subst_tot: 0.0
-#    coupling:
-#      Subst_biota: B_Ni/Ni_biota 
-#      Subst_POM: B_Ni/Ni_POM
-#      Subst_DOM: B_Ni/Ni_DOM
-#      Subst_diss: B_Ni/Ni_diss
-#      Subst_miner: B_Ni/Ni_miner
-#      H2S: B_S/H2S
-#      Mn4: B_Mn/Mn4
-#      FeS: B_Fe/FeS
-#      FeS2: B_Fe/FeS2
+      K_NiS: 2510.
+        # Solubility Product Constant,   default=2510.0_rk
+      K_NiS_form: 5.e-5 
+        # Specific rate of precipitation of NiS from Ni with H2S',   default=5.e-5_rk
+      K_NiS_diss: 1.e-6 
+        # Specific rate of dissollution of NiS to Ni and H2S',   default=1.e-6_rk
+      r_Mn4_ni: 80.
+        # Mn4[uM]/Ni[uM] partitioning coeff. for Mn4 (REF)
+      r_fes_ni: 833.    
+        # FeS[uM]/Ni[uM] partitioning coeff. for FeS (REF)
+      r_fes2_ni: 600.
+        # FeS2[uM]/Ni[uM] partitioning coeff. for FeS2 (REF)
+      Wsed: 5.0 
+        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), 
+        # =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
+      Wphy: 0.2
+        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
+      Wm: 10.0
+        #  Rate of accel. sink. of metal  (m/d)
+#----------------------------------------------------------------------
+  B_PART:
+#----------------------------------------------------------------------
+    long_name: partitioning
+    model: niva/brom_partitioning
+    coupling:
+      Subst_biota: B_Ni/Ni_biota 
+      Subst_POM: B_Ni/Ni_POM
+      Subst_DOM: B_Ni/Ni_DOM
+      Subst_dis: B_Ni/Ni
+      Subst_miner: B_Ni/Ni
+      Baae:   B_BACT/Baae
+      Bhae:   B_BACT/Bhae
+      Baan:   B_BACT/Baan
+      Bhan:   B_BACT/Bhan
+      DON:      B_BIO/DON
+      PON:      B_BIO/PON
+      Phy:      B_BIO/Phy
+      Het:      B_BIO/Het
+#----------------------------------------------------------------------
 # REFERENCES:
 #  Alldredge, A.L. and Gotschalk, C., 1988. In situ settling behavior of marine snow. Limnology and Oceanography, 33(3), pp.339-351.
 #  Boudreau, B. P.: A method-of-lines code for carbon and nutrient diagenesis in aquatic sediments, Comput. Geosci., 22(5), 479-496, doi:10.1016/0098-3004(95)00115-8, 1996.
