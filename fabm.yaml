@@ -100,7 +100,7 @@ instances:
       Bhan:   B_BACT/Bhan
       Hplus:  B_pH/Hplus
     parameters:
-      K_phy_gro: 2.5 #3. #4.7
+      K_phy_gro: 4. #3. #4.7
         # Maximum specific growth rate (1/d) = 0.9-1.3 (Savchuk, 2002), 
         # = 3.(Gregoire, Lacroix, 2001) >!0.5 worked for Berre! 
       Iopt: 25.      
@@ -440,60 +440,60 @@ instances:
       Si_diss_max: 1500.
         # Max conc. of diss Si for precipitation (mmol/m**3) (Strakhov, 1978)
 #----------------------------------------------------------------------
-  B_Ni:
+#  B_Ni:
 #----------------------------------------------------------------------
-    long_name: nickel
-    model: niva/brom_ni
-    initialization:
-      Ni: 1.0
-      NiS: 0.0
-      Ni_POM: 0.0
-      Ni_DOM: 0.0
-      Ni_biota: 0.0
-    coupling:
-      H2S: B_S/H2S
-      Mn4: B_Mn/Mn4
-      FeS: B_Fe/FeS
-      FeS2: B_Fe/FeS2
-    parameters:
-      K_NiS: 2510.
-        # Solubility Product Constant,   default=2510.0_rk
-      K_NiS_form: 5.e-5 
-        # Specific rate of precipitation of NiS from Ni with H2S',   default=5.e-5_rk
-      K_NiS_diss: 1.e-6 
-        # Specific rate of dissollution of NiS to Ni and H2S',   default=1.e-6_rk
-      r_Mn4_ni: 80.
-        # Mn4[uM]/Ni[uM] partitioning coeff. for Mn4 (REF)
-      r_fes_ni: 833.    
-        # FeS[uM]/Ni[uM] partitioning coeff. for FeS (REF)
-      r_fes2_ni: 600.
-        # FeS2[uM]/Ni[uM] partitioning coeff. for FeS2 (REF)
-      Wsed: 5.0 
-        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), 
-        # =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
-      Wphy: 0.2
-        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
-      Wm: 10.0
-        #  Rate of accel. sink. of metal  (m/d)
+#    long_name: nickel
+#    model: niva/brom_ni
+#    initialization:
+#      Ni: 1.0
+#      NiS: 0.0
+#      Ni_POM: 0.0
+#      Ni_DOM: 0.0
+#      Ni_biota: 0.0
+#    coupling:
+#      H2S: B_S/H2S
+#      Mn4: B_Mn/Mn4
+#      FeS: B_Fe/FeS
+#      FeS2: B_Fe/FeS2
+#    parameters:
+#      K_NiS: 2510.
+#        # Solubility Product Constant,   default=2510.0_rk
+#      K_NiS_form: 5.e-5 
+#        # Specific rate of precipitation of NiS from Ni with H2S',   default=5.e-5_rk
+#      K_NiS_diss: 1.e-6 
+#        # Specific rate of dissollution of NiS to Ni and H2S',   default=1.e-6_rk
+#      r_Mn4_ni: 80.
+#        # Mn4[uM]/Ni[uM] partitioning coeff. for Mn4 (REF)
+#      r_fes_ni: 833.    
+#        # FeS[uM]/Ni[uM] partitioning coeff. for FeS (REF)
+#      r_fes2_ni: 600.
+#        # FeS2[uM]/Ni[uM] partitioning coeff. for FeS2 (REF)
+#      Wsed: 5.0 
+#        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), 
+#        # =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
+#      Wphy: 0.2
+#        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
+#      Wm: 10.0
+#        #  Rate of accel. sink. of metal  (m/d)
 #----------------------------------------------------------------------
-  B_PART:
+#  B_PART:
 #----------------------------------------------------------------------
-    long_name: partitioning
-    model: niva/brom_partitioning
-    coupling:
-      Subst_biota: B_Ni/Ni_biota 
-      Subst_POM: B_Ni/Ni_POM
-      Subst_DOM: B_Ni/Ni_DOM
-      Subst_dis: B_Ni/Ni
-      Subst_miner: B_Ni/Ni
-      Baae:   B_BACT/Baae
-      Bhae:   B_BACT/Bhae
-      Baan:   B_BACT/Baan
-      Bhan:   B_BACT/Bhan
-      DON:      B_BIO/DON
-      PON:      B_BIO/PON
-      Phy:      B_BIO/Phy
-      Het:      B_BIO/Het
+#    long_name: partitioning
+#    model: niva/brom_partitioning
+#    coupling:
+#      Subst_biota: B_Ni/Ni_biota 
+#      Subst_POM: B_Ni/Ni_POM
+#      Subst_DOM: B_Ni/Ni_DOM
+#      Subst_dis: B_Ni/Ni
+#      Subst_miner: B_Ni/Ni
+#      Baae:   B_BACT/Baae
+#      Bhae:   B_BACT/Bhae
+#      Baan:   B_BACT/Baan
+#      Bhan:   B_BACT/Bhan
+#      DON:      B_BIO/DON
+#      PON:      B_BIO/PON
+#      Phy:      B_BIO/Phy
+#      Het:      B_BIO/Het
 #----------------------------------------------------------------------
 # REFERENCES:
 #  Alldredge, A.L. and Gotschalk, C., 1988. In situ settling behavior of marine snow. Limnology and Oceanography, 33(3), pp.339-351.
