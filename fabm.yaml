@@ -98,7 +98,6 @@ instances:
       Bhae:   B_BACT/Bhae
       Baan:   B_BACT/Baan
       Bhan:   B_BACT/Bhan
-      Hplus:  B_pH/Hplus
     parameters:
       K_phy_gro: 4. #3. #4.7
         # Maximum specific growth rate (1/d) = 0.9-1.3 (Savchuk, 2002), 

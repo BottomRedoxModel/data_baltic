@@ -13,7 +13,7 @@ instances:
       hz_sed_min: 0.0005          # Minimum layer thickness in the sediments near the SWI [m] (default = 0.0005 m)
       hz_sed_max: 0.01            # Maximum layer thickness deeper in the sediments [m] (default = 0.01 m)
       k_min: 1                    # Minimum k number defining the layer that is in contact with the atmosphere (default = 1) 
-      k_points_below_water: 20    # Number of levels below the water/BBL boundary (default = 20)
+      k_points_below_water: 22    # Number of levels below the water/BBL boundary (default = 20)
       i_min: 1                    # Minimum i number (default = 1)
       i_water: 1                  # Number of i for water column (default = 1)       
       i_max: 1                    # Maximum i number  (default = 1)
@@ -39,61 +39,60 @@ instances:
 #     4 for arbitrary Dirichlet, read from ASCII file or calculated as a function of salinity (i.e. for Alk, SO4)
 #     5 surface SO4 is calculated from SO4/Salinity ratio
 #
+# Top boundary conditions #
+#
       bctype_top_B_BIO_O2: 4
       bc_top_filename_B_BIO_O2 : o2_top_boundary.dat
-
-      bctype_bottom_B_S_H2S: 1
-      bc_bottom_B_S_H2S: 1000. #19st.
+#
+      bctype_top_B_NUT_PO4: 4
+      bc_top_filename_B_NUT_PO4 : po4_top_boundary.dat
+#
+      bctype_top_B_NUT_NO3: 4
+      bc_top_filename_B_NUT_NO3 : no3_top_boundary.dat
+#
+      bctype_top_B_C_Alk: 4 #1
+      bc_top_filename_B_C_Alk : alk_top_boundary.dat
+#
+      bctype_top_B_NUT_Si: 4
+      bc_top_filename_B_NUT_Si : si_top_boundary.dat
 #
       bctype_top_B_S_SO4: 1
-      bc_top_B_S_SO4: 20000.
+      bc_top_B_S_SO4: 22800.
 # 
-#      a1top_B_S_SO4: 20000
-#      a2top_B_S_SO4: 2
-#      a3top_B_S_SO4: 60.
-      bctype_bottom_B_S_SO4: 1
-      bc_bottom_B_S_SO4: 395. #19
-#
       bctype_top_B_Mn_Mn4: 1
       bc_top_B_Mn_Mn4: 20.E-4
 #
       bctype_top_B_Fe_Fe3: 1
       bc_top_B_Fe_Fe3: 5.E-4
 #
-      bctype_top_B_C_Alk: 4 #1
-      bc_top_filename_B_C_Alk : alk_top_boundary.dat
-      bc_top_B_C_Alk: 2200.
-      bctype_bottom_B_C_Alk: 1
-      bc_bottom_B_C_Alk: 17000. # st.19
+# Bottom boundary conditions #
+#
+      bctype_bottom_B_S_SO4: 1
+      bc_bottom_B_S_SO4: 522. # st. 19 13cm
 #
       bctype_bottom_B_C_DIC: 1
-      bc_bottom_B_C_DIC: 13000. #
+      bc_bottom_B_C_DIC: 16343. # st. 19 13cm
 
       bctype_bottom_B_NUT_NH4: 1
-      bc_bottom_B_NUT_NH4: 710. # st.19
+      bc_bottom_B_NUT_NH4: 1470. # st.19 13cm
 
+      bctype_bottom_B_S_H2S: 1
+      bc_bottom_B_S_H2S: 1000. # st.19 13cm
 
-      bctype_top_B_NUT_NO3: 4
-      bc_top_filename_B_NUT_NO3 : no3_top_boundary.dat
+      bctype_bottom_B_C_Alk: 1
+      bc_bottom_B_C_Alk: 13090. # st.19 13cm
 
-#      a1top_B_NUT_NO3: 1. # 3
-#      a2top_B_NUT_NO3: 1.
-#      a3top_B_NUT_NO3: 320.
-#      bctype_bottom_B_NUT_NO3: 1
-#      bc_bottom_B_NUT_NO3: 0. # no reference
-#
-      bctype_top_B_NUT_PO4: 4
-      bc_top_filename_B_NUT_PO4 : po4_top_boundary.dat
-#      a1top_B_NUT_PO4: 0.7 #0.8
-#      a2top_B_NUT_PO4: 0.7
-#      a3top_B_NUT_PO4: 320. #60.
       bctype_bottom_B_NUT_PO4: 1
-      bc_bottom_B_NUT_PO4: 185. #  st.19
-#
-      bctype_top_B_NUT_Si: 4
-      bc_top_filename_B_NUT_Si : si_top_boundary.dat
+      bc_bottom_B_NUT_PO4: 156. #  st.19 13cm
+
       bctype_bottom_B_NUT_Si: 1
-      bc_bottom_B_NUT_Si: 150. # raw estimation from kara sea 
+      bc_bottom_B_NUT_Si: 50. # 
+
+      bctype_bottom_B_NUT_NO3: 1
+      bc_bottom_B_NUT_NO3: 0. # 
+
+      bctype_bottom_B_NUT_O2: 1
+      bc_bottom_B_NUT_O2: 0. # 
 
       surf_flux_with_diff: 0   # 1 to include surface fluxes in diffusion update,
                                # 0 to include in biogeochemical update (default = 0)
@@ -107,12 +106,12 @@ instances:
 
       # injection_rate
       injection_swith : 0 # if 1- turn on injection, 0 - no injection (by default)
-      injection_rate : 10.
-      k_injection : 20 #number of layer to inject into
+      injection_rate : 26.8 #blowout 26.8 #chimney 0.2 # mmol/sek leakywell0.04
+      k_injection : 84 #number of layer to inject into
       i_injection : 1  #number of column to inject into
-      start_inj : 0    #number of day to start injection
-      stop_inj : 3    #number of  day to stop injection
-      inj_var_name :  B_S_H2S
+      start_inj : 365  #number of day to start injection
+      stop_inj : 1825   #number of  day to stop injection
+      inj_var_name :  B_C_DIC
       # full name of variable for substance  you want to inject 
 #
 #
@@ -140,17 +139,16 @@ instances:
 #     2 for "box model" mixing model: hmix = hmix_rate*(X_0 - X) with X_0 specified by ASCII input file and hmix_rate specified here     
 #
       hmix_B_NUT_NO3: 0
-      hmix_filename_B_NUT_NO3 : no3_out.dat #co2-marine_no3.dat
+      hmix_filename_B_NUT_NO3 : no3_out.dat 
       hmix_B_NUT_NH4: 0
       hmix_B_NUT_PO4: 0
-      hmix_filename_B_NUT_PO4 : po4_out.dat #co2-marine_po4.dat
+      hmix_filename_B_NUT_PO4 : po4_out.dat 
       hmix_B_NUT_Si: 0
-      hmix_filename_B_NUT_Si : si_out.dat #co2-marine_si.dat
+      hmix_filename_B_NUT_Si : si_out.dat
       hmix_B_C_Alk: 0
-      hmix_filename_B_C_Alk : alk_out.dat #co2-marine_alk.dat
-
+      hmix_filename_B_C_Alk : alk_out.dat
       hmix_B_BIO_O2: 0
-      hmix_filename_B_BIO_O2 : o2_out.dat #co2-marine_o2.dat
+      hmix_filename_B_BIO_O2 : o2_out.dat
 
 #      hmix_niva_oxydep_Oxy: 2
 #      hmix_filename_Oxy : spa_o2.dat
@@ -205,7 +203,8 @@ instances:
 # Any missing values will use the default density rho_def
       rho_def:   3.0E7                     # Default density of solid particles [mmol/m3]
       rho_B_BIO_Phy: 1.5E7         # Density of (living) phytoplankton [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
-      rho_B_BIO_PON: 1.5E7         # Density of (dead) particulate organic matter [mmolN/m3] (default = 1.4E6 mmolN/m3, from: 1.23 g WW/cm3 (Alldredge, Gotschalk, 1988), mg DW/mg WW=0.18 and mg DW /mg C=2 (Link et al.,2006))
+      rho_B_BIO_PON: 1.5E7         # Density of (dead) particulate organic matter [mmolN/m3] (default = 1.4E6 mmolN/m3,
+                                   # from: 1.23 g WW/cm3 (Alldredge, Gotschalk, 1988), mg DW/mg WW=0.18 and mg DW /mg C=2 (Link et al.,2006))
       rho_B_BIO_Het: 1.5E7         # Density of (living) non-bacterial heterotrophs [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)  
       rho_B_BACT_Baae: 1.5E7      # Density of (living) aerobic autotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
       rho_B_BACT_Bhae: 1.5E7      # Density of (living) aerobic heterotrophic bacteria [mmolN/m3] (default = 1.4E6 mmolN/m3 from PON default)
@@ -229,7 +228,7 @@ instances:
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
       year:        1993        # Selected year (for reading netCDF inputs)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
-      last_day:    365  # Last day in simulation (~ days_in_yr * no. repeated years, default = 365) #7300 #
+      last_day:    3650 #730         # Last day in simulation (~ days_in_yr * no. repeated years, default = 365) #7300 #
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
 #
 #
@@ -291,7 +290,7 @@ instances:
                                #   Soetaert et al. (1996) propose a regression model as a function of water depth:
                                #   w = 982*D^-1.548, where D is water depth in [m] and w is in cm/year, e.g. for D = 100 m, w = 0.8 cm/year = 2.5E-10 m/s
                                #   Note: Shallow particulate and solute burial velocities are inferred by assuming steady state compaction (Boudreau, 1997)   
-      dynamic_w_sed:   1       # 1 to enable time-dependent advective velocities in the sediments (default = 0)
+      dynamic_w_sed:   0       # 1 to enable time-dependent advective velocities in the sediments (default = 0)
                                #   This uses the modelled (reactive) particulate variables to correct the advective velocities in the sediments (see calculate_sed)
                                #   w_binf and phi_inf then define constant background components of these velocities
 #
@@ -313,7 +312,7 @@ instances:
       ncoutfile_type: 1                          # netCDF output type, 0 write last year of calculation, 1 write all years 
       sediments_units_convert: 1                 # 1(default) to convert concentrations from 'mass/total volume' into'mass/pore water ml' for dissolved and 'mass/mass' for solids
       outfile_name: finish.dat                   # ascii output file name
-      port_initial_state: 1                     # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
+      port_initial_state: 0                      # 0 to use FABM default (default), 1 to read from ascii file (icfile_name)
       icfile_name: start.dat                     # ascii initial condition file name (needed if port_initial_state = 1)
 #
 #The following are only used if reading input from netCDF (input_type = 2)

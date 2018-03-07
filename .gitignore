@@ -1,4 +1,4 @@
-BROM_out.nc
+*.nc
 finish.dat
 Hydrophysics.dat
 Vertical_grid.dat
