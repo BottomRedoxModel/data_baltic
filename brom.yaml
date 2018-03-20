@@ -150,13 +150,6 @@ instances:
       hmix_B_BIO_O2: 0
       hmix_filename_B_BIO_O2 : o2_out.dat
 
-#      hmix_niva_oxydep_Oxy: 2
-#      hmix_filename_Oxy : spa_o2.dat
-#      hmix_niva_oxydep_NUT: 2
-#      hmix_filename_NUT : spa_no3.dat
-#      hmix_niva_oxydep_cod_CHON: 2
-#      hmix_filename_cod_CHON : spa_chon.dat
-#
       hmix_rate_uniform: 2000. # vertically uniform horizontal relaxation (and horizontal turbulence), 0 to exclude (default = 0)
 #
 #
@@ -175,7 +168,7 @@ instances:
       lat_light: 50      # Latitude of modelled site [degrees north], e.g. Hardangerfjord station H6 is at 60.228N; Sleipner=50N; Saelen=60.33N
       Io: 80.            # Theoretical maximum 24-hr average surface downwelling shortwave irradiance in air [W/m2] (default = 80 W/m2)
                          #   This should include that effect of average cloud cover (local)
-      light_model: 2     # Specify light model: 0 for simple model based on ersem/light.f90
+      light_model: 1     # Specify light model: 0 for simple model based on ersem/light.f90
                          #                      1 for extended model accounting for other particulates in BROM
 #
 #
@@ -228,7 +221,7 @@ instances:
       freq_sed:    1           # Sinking / bhc frequency (default = 1)
       year:        1993        # Selected year (for reading netCDF inputs)
       days_in_yr:  365         # Number of days in repeated period (typically 365 or 366, default = 365)
-      last_day:    3650 #730         # Last day in simulation (~ days_in_yr * no. repeated years, default = 365) #7300 #
+      last_day:    7300 #730         # Last day in simulation (~ days_in_yr * no. repeated years, default = 365) #7300 #
       cc0:         1.0E-11     # Resilient (minimum) concentration for all variables [mmol/m3] (default = 1.0E-11 mmol/m3)
 #
 #
