@@ -8,3 +8,6 @@ BottomRedoxModel/brom_niva_module  branch dev_elp (commit c9d81833391fa045b444d5
 https://github.com/BottomRedoxModel/brom_niva_module/tree/dev_elp
 
 master vesrion of this repository is for baseline scenario 
+
+Information about the model 
+https://github.com/BottomRedoxModel/GroupStructure/wiki
