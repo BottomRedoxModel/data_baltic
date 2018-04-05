@@ -83,8 +83,10 @@ instances:
     initialization:
       Phy: 0.01
       Het: 0.01
-      PON: 0.01
-      DON: 0.0
+      POML: 0.01
+      POMR: 0.0001
+      DOML: 0.0
+      DOMR: 0.0
       O2:  300.0
     coupling:
       PO4:    B_NUT/PO4
@@ -99,20 +101,22 @@ instances:
       Bhae:   B_BACT/Bhae
       Baan:   B_BACT/Baan
       Bhan:   B_BACT/Bhan
+      Hplus:  B_pH/Hplus
     parameters:
       K_phy_gro: 4. #3. #4.7
         # Maximum specific growth rate (1/d) = 0.9-1.3 (Savchuk, 2002), 
         # = 3.(Gregoire, Lacroix, 2001) >!0.5 worked for Berre! 
       Iopt: 25.      
         # Optimal irradiance (W/m2) =50 (Savchuk, 2002)
-      phy_t_dependence: 1   # select dependence of Phy growth rate on temperature:
+      phy_t_dependence: 3   # select dependence of Phy growth rate on temperature:
                             # (1) Old (ERGOM); (2) for Arctic; (3) ERSEM
       K_phy_mrt: 0.10 
         # Specific rate of mortality, (1/d) = 0.3-0.6 (Savchuk, 2002), = 0.05 (Gregoire, Lacroix, 2001)   
       K_phy_exc: 0.10       # Specific rate of excretion, (1/d) = 0.01 (Burchard et al., 2006)
       K_het_phy_gro: 0.9    #! Max.spec. rate of grazing of Zoo on Phy, (1/d), =0.9 (Gregoire, Lacroix, 2001), =1.5 (Burchard et al., 2006)   was 1.1 
       K_het_phy_lim: 0.5    #! Half-sat.const.for grazing of Zoo on Phy for Phy/Zoo ratio
-      K_het_pom_gro: 0.50   #! Max.spec.rate of grazing of Zoo on POP and bacteria, (1/d), =1.2 (Burchard et al., 2006)
+      K_het_pom_gro: 0.5    #! Max.spec.rate of grazing of Zoo on POP, (1/d), =1.2 (Burchard et al., 2006)
+      K_het_bac_gro: 0.8    #! Max.spec.rate of grazing of Zoo on bacteria, (1/d)
       K_het_pom_lim: 0.05   #! Half-sat.const.for grazing of Zoo on POP for POP/Zoo  ratio
       K_het_res: 0.02       #! Specific respiration rate =0.02 (Yakushev et al., 2007)
       K_het_mrt: 0.01       #! %! Maximum specific rate of mortality of Zoo (1/d) =0.05 (Gregoire, Lacroix, 2001)  
@@ -124,10 +128,13 @@ instances:
       K_psi: 1.46           #! Strength of NH4 inhibition of NO3 uptake constant (uM-1) =1.46_rk (Gregoire, Lacroix, 2001)
       K_nfix: 0.4           #! Maximum specific rate of N-fixation (1/d) =0.5 (Savchuk, 2002)
       K_po4_lim: 0.012      #! Half-sat. constant for uptake of PO4 by Phy
-      K_si_lim: 0.1         #! Half-sat. constant for uptake of Si_lim by Phy
-      K_PON_DON: 0.18       #! Specific rate of Autolysis of PON to DON
-      K_PON_ox: 0.01       #! Specific rate of oxidation of PON with O2
-      K_DON_ox: 0.15        #! Specific rate of oxidation of DON with O2
+      K_si_lim: 0.5         #! Half-sat. constant for uptake of Si_lim by Phy
+      K_POML_DOML: 0.15       #! Specific rate of Autolysis of POML to DOML
+      K_POMR_DOMR: 0.00001       #! Specific rate of Autolysis of POMR to DOMR
+      K_POML_ox: 0.02       #! Specific rate of oxidation of POML with O2
+      K_POMR_ox: 0.002       #! Specific rate of oxidation of POMR with O2
+      K_DOML_ox: 0.10        #! Specific rate of oxidation of DOML with O2
+      K_DOMR_ox: 0.10        #! Specific rate of oxidation of DOMR with O2
       K_omox_o2: 1.         #! half sat. of o2 for OM mineralization
       Wsed: 5.0        #! Rate of sinking of detritus (m/d), =0.4 (Savchuk, 2002), =5. (Gregoire, Lacroix, 2001), =1-370 (Alldredge, Gotschalk, 1988)
       Wphy: 0.2        #! Rate of sinking of Phy (m/d), =0.1-0.5 (Savchuk, 2002)
@@ -136,7 +143,7 @@ instances:
       r_o_n: 6.625     #! O2[uM]/N[uM]
       r_c_n: 8.0       #! C[uM]/N[uM]  
       r_si_n: 1.0      #! Si[uM]/N[uM]
-#----------------------------------------------------------------------
+#-------------------uuuu---------------------------------------------------
   B_BACT:
 #----------------------------------------------------------------------
     long_name: bacteria
@@ -148,8 +155,10 @@ instances:
       Bhan: 0.01
     coupling:
       NH4:      B_NUT/NH4
-      DON:      B_BIO/DON
-      PON:      B_BIO/PON
+      DOML:     B_BIO/DOML
+      DOMR:     B_BIO/DOMR
+      POML:     B_BIO/POML
+      POMR:     B_BIO/POMR
       O2:       B_BIO/O2
       PO4:      B_NUT/PO4
       DIC:      B_C/DIC
@@ -166,17 +175,12 @@ instances:
       hs_no3:   B_S/hs_no3
       s2o3_ox:  B_S/s2o3_ox
       s0_ox:    B_S/s0_ox
-      DcPM_O2:  B_BIO/DcPM_O2
-      DcDM_O2:  B_BIO/DcDM_O2
-      DcPM_NOX: B_N/DcPM_NOX
-      DcDM_NOX: B_N/DcDM_NOX
-      DcPM_SO4: B_S/DcPM_SO4
-      DcDM_SO4: B_S/DcDM_SO4
-      DcPM_Mn4:  B_Mn/DcPM_Mn4
-      DcDM_Mn4:  B_Mn/DcDM_Mn4
-      DcPM_Fe:  B_Fe/DcPM_Fe
-      DcDM_Fe:  B_Fe/DcDM_Fe
-      DcPM_ch4: B_CH4/DcPM_ch4
+      DcTOM_O2:  B_BIO/DcTOM_O2
+      DcTOM_NOX:   B_N/DcTOM_NOX
+      DcTOM_MnX:  B_Mn/DcTOM_MnX
+      DcTOM_Fe:   B_Fe/DcTOM_Fe
+      DcTOM_SOX:   B_S/DcTOM_SOX
+      DcTOM_CH4: B_CH4/DcTOM_CH4
     parameters:
       K_Baae_gro: 0.1        #!  Baae maximum specific growth rate (1/d) (Yakushev, 2013)
       K_Baae_mrt: 0.005      #!  Baae specific rate of mortality (1/d) (Yakushev et al., 2013)
@@ -205,57 +209,86 @@ instances:
       NO3: B_NUT/NO3
       DIC: B_C/DIC  # carbon dioxide (mmol C/m^3)
       O2:  B_BIO/O2
-      DON: B_BIO/DON
-      PON: B_BIO/PON
+      DOML: B_BIO/DOML
+      DOMR: B_BIO/DOMR
+      POML: B_BIO/POML
+      POMR: B_BIO/POMR
       PO4: B_NUT/PO4
     parameters:
       # Spec.rate of 1st st. of nitrification
       K_nitrif1: 0.01
       # Spec.rate of 2d st. of nitrification
       K_nitrif2: 0.1
-      # Spec.rate of 1 stage of denitrif
-      K_denitr1: 0.3
-      # Spec.rate of 2 stage of denitrif
-      K_denitr2: 0.20
-      K_omno_no3: 0.001 # Half sat. of no3 for OM denitr. (uM N)
-      K_omno_no2: 0.001 # Half sat. of no2 for OM denitr. (uM N)
-      # Spec.rate of Anammox (1/d) (Gregoire, Lacroix, 2001)
+         # Spec.rate of 2d st. of nitrification
+      K_POML_NO3: 0.0025
+         # Spec.rate of 1 stage of denitrif of POML
+      K_POML_NO2: 0.0025
+         # Spec.rate of 2 stage of denitrif of POML
+      K_POMR_NO3: 0.000125
+         # Spec.rate of 1 stage of denitrif of POMR
+      K_POMR_NO2: 0.000125
+         # Spec.rate of 2 stage of denitrif of POMR
+      K_DOML_NO3: 0.0025
+         # Spec.rate of 1 stage of denitrif of DOML
+      K_DOML_NO2: 0.0025
+         # Spec.rate of 2 stage of denitrif of DOML
+      K_DOMR_NO3: 0.000025
+         # Spec.rate of 1 stage of denitrif of DOMR
+      K_DOMR_NO2: 0.000125
+         # Spec.rate of 2 stage of denitrif of DOMR
+      K_omno_no3: 0.005
+         # Half sat. of no3 for OM denitr. (uM N)
+      K_omno_no2: 0.005
+         # Half sat. of no2 for OM denitr. (uM N)
       K_annamox: 0.8
-      # Threshold of O2 saturation for nitrification (uM)
+         # Spec.rate of Anammox (1/d) (Gregoire, Lacroix, 2001)
       O2s_nf: 5.
       # Threshold of O2 for denitrification, anammox, Mn reduction (uM O2)
       O2s_dn: 10.0
-      r_n_p: 16.0  # N[uM]/P[uM]
-      r_c_n: 8.0   # C[uM]/N[uM]
+         # Threshold of O2 for denitrification, anammox, Mn reduction (uM O2)
+      s_OM_refr: 20.0   # threshold of refractory OM for decay
+      r_n_p:   16.0  # N[uM]/P[uM] =  16./1.
+      r_c_n:   6.625 # C[uM]/N[uM] = 106./16.
+      r_n_no3: 0.075 # N[uM]/NO3[uM]= 16./212.
+      r_n_no2: 0.113 # N[uM]/NO2[uM]= 16./141.3
 #----------------------------------------------------------------------
   B_CH4:
 #----------------------------------------------------------------------
     long_name: methane
     model: niva/brom_methane
     parameters:
-      s_omso_o2: 25.0 # threshold of o2 for OM sulfate reduction
-      s_omso_no3: 5.0 # threshold of noX for OM sulfate reduction
-      # Threshold of of SO4 for methane production from OM
+      s_omso_o2: 25.0
+         # threshold of o2 for OM sulfate reduction
+      s_omso_no3: 5.0
+         # threshold of noX for OM sulfate reduction
       s_omch_so4: 30.
-      # Specific rate of methane production from DON (Lopes et al., 2011)
-      K_DON_ch4: 0.00014
-      # Specific rate of methane production from PON
-      K_PON_ch4: 0.00014
-      # Specific rate of oxidation of CH4 with O2
+         # Threshold of of SO4 for methane production from OM
+      K_DOML_ch4: 0.00014
+         # Specific rate of methane production from DON (Lopes et al., 2011)
+      K_POML_ch4: 0.00014
+         # Specific rate of methane production from POML
+      K_POMR_ch4: 0.0000014
+         # Specific rate of methane production from POMR
+      K_DOMR_ch4: 0.0000014
+         # Specific rate of methane production from DOMR
       K_ch4_o2: 0.14
       # Specific rate of oxidation of CH4 with SO4
       K_ch4_so4: 0.0000274
-      r_n_p: 16.0  # N[uM]/P[uM]
-      r_c_n: 8.0   # C[uM]/N[uM]
+         # Specific rate of oxidation of CH4 with SO4
+      s_OM_refr: 100.0   # threshold of refractory OM for decay
+      r_n_p: 16.0   # N[uM]/P[uM]
+      r_c_n: 6.625  # C[uM]/N[uM]
     initialization:
       CH4: 0.0001 # Methan (mmol C/m^3)
     coupling:
       DIC: B_C/DIC
       O2:  B_BIO/O2
-      DON: B_BIO/DON
-      PON: B_BIO/PON
-      PO4: B_NUT/PO4
+      DOML: B_BIO/DOML
+      DOMR: B_BIO/DOMR
+      POML: B_BIO/POML
+      POMR: B_BIO/POMR
       NO3: B_NUT/NO3
+      PO4: B_NUT/PO4
       NH4: B_NUT/NH4
       SO4: B_S/SO4
 #----------------------------------------------------------------------
@@ -273,20 +306,36 @@ instances:
       NO3: B_NUT/NO3
       DIC: B_C/DIC # carbon dioxide (mmol C/m^3)
       O2:  B_BIO/O2
-      DON: B_BIO/DON
-      PON: B_BIO/PON
+      DOML: B_BIO/DOML
+      DOMR: B_BIO/DOMR
+      POML: B_BIO/POML
+      POMR: B_BIO/POMR
       PO4: B_NUT/PO4
       NH4: B_NUT/NH4
     parameters:
       # Specific rate of oxidation of H2S to S0 with O2 (1/d)
       K_hs_ox: 0.5
-      K_s0_ox: 0.02   # Specific rate of oxidation of S0 with O2
-      K_s2o3_ox: 0.01 # Specific rate of oxidation of S2O3 with O2
-      # Specific rate of OM sulfate reduction with sulfate
-      K_so4_rd: 0.000005
-      # Specific rate of OM sulfate reduction with thiosulfate
-      K_s2o3_rd: 0.001
-      # Specific rate of S0 dispropotionation
+         # Specific rate of oxidation of H2S to S0 with O2 (1/d)
+      K_s0_ox: 0.02
+         # Specific rate of oxidation of S0 with O2
+      K_s2o3_ox: 0.005
+        # Specific rate of oxidation of S2O3 with O2
+      K_POML_so4: 0.000001
+        # Specific rate of POML sulfate reduction with sulfate
+      K_POML_s2o3: 0.0001
+        # Specific rate of OM sulfate reduction with thiosulfate
+      K_POMR_so4: 0.0000000001
+        # Specific rate of POML sulfate reduction with thiosulfate
+      K_POMR_s2o3: 0.000005
+        # Specific rate of POMR sulfate reduction with sulfate
+      K_DOML_so4: 0.0000001
+        # Specific rate of DOML sulfate reduction with thiosulfate
+      K_DOML_s2o3: 0.005
+        # Specific rate of DOML sulfate reduction with sulfate
+      K_DOMR_so4: 0.000000001
+        # Specific rate of DOMR sulfate reduction with thiosulfate
+      K_DOMR_s2o3: 0.000005
+        # Specific rate of DOMR sulfate reduction with sulfate
       K_s0_disp:  0.001
       # Spec.rate of thiodenitrification (1/d)
       K_hs_no3: 0.8
@@ -294,8 +343,10 @@ instances:
       K_s2o3_no3: 0.01  # Specific rate of oxidation of S2O3 with NO3
       s_omso_o2: 25.0   # threshold of o2 for OM sulfate reduction
       s_omso_no3: 5.0   # threshold of noX for OM sulfate reduction
-      r_n_p: 16.0  # N[uM]/P[uM]
-      r_c_n: 8.0   # C[uM]/N[uM]
+      s_OM_refr: 50.0   # threshold of refractory OM for decay
+      r_n_p: 16.0   # N[uM]/P[uM]
+      r_c_n: 6.625  # C[uM]/N[uM]
+      r_n_s: 0.302  # N[uM]/S[uM]
 #----------------------------------------------------------------------
   B_Fe:
 #----------------------------------------------------------------------
@@ -321,8 +372,10 @@ instances:
       PO4:   B_NUT/PO4
       NH4:   B_NUT/NH4
       O2:    B_BIO/O2
-      DON:   B_BIO/DON
-      PON:   B_BIO/PON
+      DOML:   B_BIO/DOML
+      DOMR:   B_BIO/DOMR
+      POML:   B_BIO/POML
+      POMR:   B_BIO/POMR
       Hplus: B_pH/Hplus
     parameters: 
       Wm: 10.0 # (m/d)
@@ -335,16 +388,20 @@ instances:
         # Specific rate of reduction of Fe3 to Fe2  with H2S:
       K_fes: 2510. # (uM)
         # FeS equilibrium constant: 2.51e-6 mol/cm3  (Katsev, 2006)
-      K_fes_form: 1.e-3 #5.e-4 # (1/d)
+      K_fes_form: 5.e-4 # (1/d)
         # Specific rate of precipitation of FeS from Fe2 with H2S: 4.e-5 (mol/g/yr)  (Katsev, 2006)
-      K_fes_diss: 2.7e-6 # (1/d)
+      K_fes_diss: 1.0e-5  # (1/d)
         # Specific rate of dissollution of FeS to Fe2 and H2S: 1.e-3 (1/yr) (Katsev, 2006)
-      K_fes_ox: 0.001 # (1/d)
+      K_fes_ox: 1.0e-5 #0.001 # (1/d)
         # Specific rate of oxidation of FeS with O2: 2.e7 - 3.e5 (M/yr) (VanCapellan, 1996)
-      K_DON_fe: 0.00005 # (1/d)
-        # Specific rate of oxidation of DON with Fe3 (1/day) 5.e-5 (1/d) (Boudrau, 1996)
-      K_PON_fe: 0.00001 # (1/d)
-        # Specific rate of oxidation of PON with Fe3 (1/day) 1.e-5 (1/d) (Boudrau, 1996)
+      K_DOML_fe: 0.000025 # (1/d)
+        # Specific rate of oxidation of DOML with Fe3 (1/day) 5.e-5 (1/d) (Boudrau, 1996)
+      K_POML_fe: 0.000005 # (1/d)
+        # Specific rate of oxidation of POML with Fe3 (1/day) 1.e-5 (1/d) (Boudrau, 1996)
+      K_POMR_fe: 0.0000025 # (1/d)
+        # Specific rate of oxidation of POMR with Fe3 (1/day) 1.e-5 (1/d) (Boudrau, 1996)
+      K_DOMR_fe: 0.0000005 # (1/d)
+        # Specific rate of oxidation of DOMR with Fe3 (1/day) 1.e-5 (1/d) (Boudrau, 1996)
       K_fes2_form: 0.000001 # (1/d)
         # Specific rate of FeS2 formation by FeS oxidation by H2S: 9.e-6 (M/d) (Rickard, Luther, 1997)
       K_fes2_ox: 0.00044 # (1/d)
@@ -361,11 +418,11 @@ instances:
         # Specific rate of formation of FeCO3: 1.e-6 - 1.e-2 (mol/g/yr) (Wersin, 1990)
       K_feco3_ox: 0.0027 # (1/d)
         # Specific rate of oxidation of FeCO3 with O2: (assumed)
-      K_fe3po42: 0.018 #0.18 #180. # (uM**5)
+      K_fe3po42: 1800. #0.018 #0.18 # (uM**5)
         #! Conditional equilibrium constant for Fe3PO4: 3.e-50 (mol/cm3)^5  (Katsev, 2006)
       K_fe3po42_diss: 2.7e-3 # (1/d)
         #!Specific rate of dissolution for Fe3PO4: 1. (1/yr)  (Katsev, 2006)
-      K_fe3po42_form: 1e-9 # (1/d)
+      K_fe3po42_form: 1e-11 #1e-9 # (1/d)
         #!Specific rate of formation for Fe3PO4: 1.7e-9 (mol/g/yr)  (Katsev, 2006)
       K_fe3po42_ox: 0.0027 # (1/d)
         #!Specific rate of oxidation of FeCO3 with O2: (assumed)
@@ -375,8 +432,13 @@ instances:
         # Half sat. of no3 for OM denitr.: (assumed)
       O2s_dn: 10.0 # (uM O2)
         # Threshold of O2 for denitrification, anammox, Mn reduction: (assumed)
+      K_PO4_Fe3: 10000
+         #!partitioning coef PO4 on Fe3 
+      Sad_Fe3: 0.001
+         #!sorption sites on Fe3 0.01 Katsev, 2006
+      s_OM_refr: 50.0   # threshold of refractory OM for decay
       r_n_p: 16.0  # N[uM]/P[uM]
-      r_c_n: 8.0   # C[uM]/N[uM]
+      r_c_n: 6.625 # C[uM]/N[uM]
       r_fe_n: 26.5 # Fe[uM]/N[uM] (Boudrau, 1996)
       r_fe3_p: 2.7
         # Fe[uM]/P[uM] partitioning coeff. for Fe oxide (Yakushev, 2007)
@@ -400,8 +462,10 @@ instances:
       PO4:   B_NUT/PO4
       NH4:   B_NUT/NH4
       O2:    B_BIO/O2
-      DON:   B_BIO/DON
-      PON:   B_BIO/PON
+      DOML:   B_BIO/DOML
+      DOMR:   B_BIO/DOMR
+      POML:   B_BIO/POML
+      POMR:   B_BIO/POMR
       Hplus: B_pH/Hplus
     parameters:
       Wm: 10.0 # (m/d)
@@ -430,10 +494,22 @@ instances:
         # Specific rate of formation of MnCO3 1.e-4 - 1.e-2 (mol/g/yr) (Wersin, 1990)
       K_mnco3_ox: 0.0027 # (1/d)
         # Specific rate of oxidation of MnCO3 with O2 (assumed)
-      K_DON_mn: 0.0001 # (1/d)
-        # Specific rate of oxidation of DON with Mn4 (assumed)
-      K_PON_mn: 0.0001 # (1/d)
-        # Specific rate of oxidation of PON with Mn4 (assumed)
+      K_DOML_mn4: 0.00005 # (1/d)
+        # Specific rate of oxidation of DOML with Mn4 (assumed)
+      K_POML_mn4: 0.00005 # (1/d)
+        # Specific rate of oxidation of POML with Mn4 (assumed)
+      K_POMR_mn4: 0.000001 # (1/d)
+        # Specific rate of oxidation of POMR with Mn4 (assumed)
+      K_DOMR_mn4: 0.000001 # (1/d)
+        # Specific rate of oxidation of DOMR with Mn4 (assumed)
+      K_DOML_mn3: 0.0001 # (1/d)
+        # Specific rate of oxidation of DOML with Mn3 (assumed)
+      K_POML_mn3: 0.0001 # (1/d)
+        # Specific rate of oxidation of POML with Mn3 (assumed)
+      K_POMR_mn3: 0.000001 # (1/d)
+        # Specific rate of oxidation of POMR with Mn3 (assumed)
+      K_DOMR_mn3: 0.000001 # (1/d)
+        # Specific rate of oxidation of DOMR with Mn3 (assumed)
       s_mnox_mn2: 0.01 # (uM Mn)
         # threshold of Mn2 oxidation (Yakushev, 2007)
       s_mnox_mn3: 0.01 # (uM Mn)
@@ -448,6 +524,7 @@ instances:
         # half sat. of Mn reduction (uM S) (Yakushev, 2007)
       K_mnox_o2: 2.0 # (uM O2)
         # Half sat. of Mn oxidation (uM O2) (Yakushev, 2007)
+      s_OM_refr: 50.0   # threshold of refractory OM for decay
       r_mn_n: 13.25
         # Mn[uM]/N[uM] (Boudrau, 1996)
       r_mn3_p: 0.67
@@ -475,6 +552,19 @@ instances:
       Si_diss_max: 800.
         # Max conc. of diss Si for precipitation (mmol/m**3) (Strakhov, 1978)
 #----------------------------------------------------------------------
+#  B_Ba:
+#----------------------------------------------------------------------
+#    long_name: barium
+#    model: niva/brom_ba
+#    initialization:
+#      Ba: 0.0
+#      BaSO4: 0.001
+#    coupling:
+#      SO4: B_S/SO4
+# #   parameters:
+#      Wsed: 5.0 # Rate of sinking of detritus (m/d)
+#        # Sinking (Gregoire, Lacroix, 2001)
+#----------------------------------------------------------------------
 #  B_Ni:
 #----------------------------------------------------------------------
 #    long_name: nickel
@@ -497,7 +587,7 @@ instances:
 #        # Specific rate of precipitation of NiS from Ni with H2S',   default=5.e-5_rk
 #      K_NiS_diss: 1.e-6 
 #        # Specific rate of dissollution of NiS to Ni and H2S',   default=1.e-6_rk
-#      r_Mn4_ni: 80.
+#      r_mn4_ni: 80.
 #        # Mn4[uM]/Ni[uM] partitioning coeff. for Mn4 (REF)
 #      r_fes_ni: 833.    
 #        # FeS[uM]/Ni[uM] partitioning coeff. for FeS (REF)
